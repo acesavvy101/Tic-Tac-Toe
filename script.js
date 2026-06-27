@@ -28,11 +28,6 @@ function Gameboard () {
         getGameboard: () => gameboard //public getter (maintain encapsulation) | CONSIDER: making it readonly
     }
 }
-//inspect board state
-const Gameboard1 = Gameboard();
-Gameboard1.add('X', 0);
-Gameboard1.add('O',4);
-console.log(Gameboard1.getGameboard());
 
 
 function gameRound (boardInstance) {
@@ -40,18 +35,6 @@ function gameRound (boardInstance) {
     function createPlayer (name) {
         return {
             name: name
-        }
-    }
-
-    let currentArray = getGameboard() //store the gameboard[] inside another var 
-
-    function gameOver () {
-        if (winCondition()) {
-            console.log(gameboard)
-            console.log(`you win`)
-        } else if (!gameboard.includes('')) { //if the array has no empty strings, so no spots left to fill
-            gameboard
-            console.log(`its a tie!`)
         }
     }
 
@@ -66,14 +49,28 @@ function gameRound (boardInstance) {
         [2, 4, 6]
     ];
 
-    return {
-        winCondition: () => {
+    function gameOver () {
+        function winCondition () {
             return winningCombos.some(([a, b, c]) => {
-                return gameboard[a] !== '' &&
-                       gameboard[a] === gameboard[b] &&
-                       gameboard[a] === gameboard[c];
+                return boardInstance.getGameboard()[a] !== '' &&
+                boardInstance.getGameboard()[a] === boardInstance.getGameboard()[b] &&
+                boardInstance.getGameboard()[a] === boardInstance.getGameboard()[c];
             });
-        },
+        }
+
+        if (winCondition()) {
+            console.log(boardInstance.getGameboard())
+            console.log(`you win`)
+        } else if (!boardInstance.getGameboard().includes('')) { //if the array has no empty strings, so no spots left to fill
+            console.log(boardInstance.getGameboard())
+            console.log(`its a tie!`)
+        } else {
+            //continue to play the game
+            return
+        }
+    }
+
+    return {
         createPlayer,
         gameOver
     }
@@ -83,6 +80,22 @@ function gameRound (boardInstance) {
 
 }
 
+//inspect board state
+const Gameboard1 = Gameboard();
+Gameboard1.add('X', 0);
+Gameboard1.add('O', 1);
+Gameboard1.add('X', 2);
+
+Gameboard1.add('O', 3);
+Gameboard1.add('X', 4);
+Gameboard1.add('O', 5);
+
+Gameboard1.add('O', 6);
+Gameboard1.add('X', 7);
+Gameboard1.add('O', 8);
+
+const round1 = gameRound(Gameboard1);
+round1.gameOver();
 /*
 const gameLogicInstance = gameRound();
 
