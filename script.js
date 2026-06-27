@@ -30,7 +30,7 @@ function Gameboard () {
 }
 
 
-function gameRound (boardInstance) {
+function GameRound (boardInstance) {
     //for every round u play, get the player's info
     function createPlayer (name) {
         return {
@@ -74,11 +74,17 @@ function gameRound (boardInstance) {
         createPlayer,
         gameOver
     }
-   
     //identify which player is playing, add X and O
     //switching turns, get the board after every turn
-
 }
+
+function GameDisplay (boardInstance) {
+
+    function displayBoard() {
+        //get the gameboard Arr, then display the contents of the array
+    }
+}
+
 
 //inspect board state
 const Gameboard1 = Gameboard();
@@ -94,13 +100,6 @@ Gameboard1.add('O', 6);
 Gameboard1.add('X', 7);
 Gameboard1.add('O', 8);
 
-const round1 = gameRound(Gameboard1);
+const round1 = GameRound(Gameboard1);
 round1.gameOver();
-/*
-const gameLogicInstance = gameRound();
-
-const player1 = gameLogicInstance('alice');
-const player2 = gameLogicInstance('bob');
-console.log(player1) 
-*/
 

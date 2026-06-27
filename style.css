@@ -1,0 +1,19 @@
+#gridContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    aspect-ratio: 1/1; /* to make it evenly squared */
+    width: 500px;
+    height: 500px;
+}
+
+.box {
+    border: 1px solid black;
+}
+
+#bigContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /* vertical centering */
+}
