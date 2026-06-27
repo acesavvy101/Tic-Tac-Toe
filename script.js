@@ -17,7 +17,7 @@ function Gameboard () {
           if (gameboard[position]==='') {
             gameboard[position] = label;
           } else {
-            console.log(`choose a different position!`)
+            return
           }
         },
 
@@ -30,7 +30,7 @@ function Gameboard () {
 }
 
 
-function GameRound (boardInstance) {
+function GameRound (boardInstance, gameDisplay) {
     //for every round u play, get the player's info
     function createPlayer (name) {
         return {
@@ -70,12 +70,33 @@ function GameRound (boardInstance) {
         }
     }
 
+    let currentPlayer = "X" 
+    const gridContainer = document.getElementById("gridContainer");
+    gridContainer.addEventListener("click", (e) => {
+    const box = e.target.closest(".box");  //determine which box was clicked
+    if (!box) return; //ignore click if not box
+    playerTurn (box.id)
+    })
+    function playerTurn (boxID) {
+        //identify which player is playing, add X and O
+        if (currentPlayer === "X") {
+            boardInstance.add("X", boxID) //place mark
+            gameOver()
+            //FIX: if X picks an occupied spot?
+            gameDisplay.displayBoard () 
+            currentPlayer = "O"
+        } else if (currentPlayer === "O") {
+            boardInstance.add("O",boxID)
+            gameOver()
+            gameDisplay.displayBoard () //update display after every run
+            currentPlayer = "X"
+        }
+    }
+
     return {
         createPlayer,
         gameOver
     }
-    //identify which player is playing, add X and O
-    //switching turns, get the board after every turn
 }
 
 function GameDisplay (boardInstance) {
@@ -92,23 +113,10 @@ function GameDisplay (boardInstance) {
     }
 }
 
-
-//inspect board state
 const Gameboard1 = Gameboard();
-Gameboard1.add('X', 0);
-Gameboard1.add('O', 1);
-Gameboard1.add('X', 2);
+const display = GameDisplay(Gameboard1);
+const game = GameRound(Gameboard1, display);
 
-Gameboard1.add('O', 3);
-Gameboard1.add('X', 4);
-Gameboard1.add('O', 5);
+display.displayBoard();
 
-Gameboard1.add('O', 6);
-Gameboard1.add('X', 7);
-Gameboard1.add('O', 8);
-
-const round1 = GameRound(Gameboard1);
-round1.gameOver();
-
-const trial = GameDisplay(Gameboard1)
-trial.displayBoard()
+//TMR: Fix Bugs, Clean up UI, IIFE
