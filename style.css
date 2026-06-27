@@ -5,6 +5,8 @@
     aspect-ratio: 1/1; /* to make it evenly squared */
     width: 500px;
     height: 500px;
+    font-size: 150px;
+    text-align: center;
 }
 
 .box {

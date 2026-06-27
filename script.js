@@ -81,7 +81,28 @@ function GameRound (boardInstance) {
 function GameDisplay (boardInstance) {
 
     function displayBoard() {
-        //get the gameboard Arr, then display the contents of the array
+        const grid0 = document.getElementById("0");
+        grid0.textContent = boardInstance.getGameboard()[0]  //display the corresponding element in the array
+        const grid1 = document.getElementById("1");
+        grid1.textContent = boardInstance.getGameboard()[1]
+        const grid2 = document.getElementById("2");
+        grid2.textContent = boardInstance.getGameboard()[2]
+        const grid3 = document.getElementById("3");
+        grid3.textContent = boardInstance.getGameboard()[3]
+        const grid4 = document.getElementById("4");
+        grid4.textContent = boardInstance.getGameboard()[4]
+        const grid5 = document.getElementById("5");
+        grid5.textContent = boardInstance.getGameboard()[5]
+        const grid6 = document.getElementById("6");
+        grid6.textContent = boardInstance.getGameboard()[6]
+        const grid7 = document.getElementById("7");
+        grid7.textContent = boardInstance.getGameboard()[7]
+        const grid8 = document.getElementById("8");
+        grid8.textContent = boardInstance.getGameboard()[8]
+    }
+
+    return {
+        displayBoard
     }
 }
 
@@ -103,3 +124,5 @@ Gameboard1.add('O', 8);
 const round1 = GameRound(Gameboard1);
 round1.gameOver();
 
+const trial = GameDisplay(Gameboard1)
+trial.displayBoard()
