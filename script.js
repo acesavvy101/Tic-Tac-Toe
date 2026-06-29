@@ -1,12 +1,3 @@
-/* PSEUDOCODE
-1. make a Gameboard object using factory functions,
-2. store gameboard array inside the object
-3. plauyers are going to be stored in objects not in Gameboard 
-4. in the game logic/ players take turns adding X and O to the array
-5. the array will be appended to the display in displayBoard()
-4. add, reset behaviors objects
-wrap in IIFE*/
-
 function Gameboard () { 
     //instead of pushing into gameboard, we should already have an array with 9 spots, and we need to replace a certain ele in the array (direct indexing)
     let gameboard = ['','','','','','','','',''];
@@ -49,6 +40,14 @@ function GameRound (boardInstance, gameDisplay) {
         [2, 4, 6]
     ];
 
+    const restartGame = document.getElementById("restart")
+    restartGame.addEventListener("click", () => {
+        boardInstance.reset()
+        gameDisplay.displayBoard() // changing the array doesnt automatically change the display, u need 2 call it
+    })
+
+    const displayResult = document.getElementById("displayResult")
+
     function gameOver () {
         function winCondition () {
             return winningCombos.some(([a, b, c]) => {
@@ -59,11 +58,9 @@ function GameRound (boardInstance, gameDisplay) {
         }
 
         if (winCondition()) {
-            console.log(boardInstance.getGameboard())
-            console.log(`you win`)
+            displayResult.textContent = `Player ${currentPlayer} Wins!`
         } else if (!boardInstance.getGameboard().includes('')) { //if the array has no empty strings, so no spots left to fill
-            console.log(boardInstance.getGameboard())
-            console.log(`its a tie!`)
+            displayResult.textContent = "It's a Tie!"
         } else {
             //continue to play the game
             return
@@ -84,19 +81,18 @@ function GameRound (boardInstance, gameDisplay) {
             if (currentPlayer === "X") {   
             boardInstance.add("X", boxID) //place mark
             gameOver()
-            gameDisplay.displayBoard () 
+            gameDisplay.displayBoard() 
             currentPlayer = "O"
             } else if (currentPlayer === "O") {
             boardInstance.add("O",boxID)
             gameOver()
-            gameDisplay.displayBoard () //update display after every run
+            gameDisplay.displayBoard() 
             currentPlayer = "X"
             }
         } else {
             alert (`pick a different position!`)
             return
         }
-        
     }
 
     return {
@@ -126,3 +122,4 @@ const game = GameRound(Gameboard1, display);
 display.displayBoard();
 
 
+//WRAP EVERYTHING IN IIFE! | FIX: after a player wins, disable click
