@@ -76,21 +76,27 @@ function GameRound (boardInstance, gameDisplay) {
     const box = e.target.closest(".box");  //determine which box was clicked
     if (!box) return; //ignore click if not box
     playerTurn (box.id)
-    })
+    }) 
     function playerTurn (boxID) {
-        //identify which player is playing, add X and O
-        if (currentPlayer === "X") {
+            //FIX: no skip turns if player accidentally picks an occupied spot
+        if (boardInstance.getGameboard()[boxID] === "") {
+            //identify which player is playing, add X and O
+            if (currentPlayer === "X") {   
             boardInstance.add("X", boxID) //place mark
             gameOver()
-            //FIX: if X picks an occupied spot?
             gameDisplay.displayBoard () 
             currentPlayer = "O"
-        } else if (currentPlayer === "O") {
+            } else if (currentPlayer === "O") {
             boardInstance.add("O",boxID)
             gameOver()
             gameDisplay.displayBoard () //update display after every run
             currentPlayer = "X"
+            }
+        } else {
+            alert (`pick a different position!`)
+            return
         }
+        
     }
 
     return {
@@ -119,4 +125,4 @@ const game = GameRound(Gameboard1, display);
 
 display.displayBoard();
 
-//TMR: Fix Bugs, Clean up UI, IIFE
+
