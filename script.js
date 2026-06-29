@@ -48,6 +48,8 @@ function GameRound (boardInstance, gameDisplay) {
 
     const displayResult = document.getElementById("displayResult")
 
+    let isgameOver = false; //make initial value which allows it to run at least once before checking!
+
     function gameOver () {
         function winCondition () {
             return winningCombos.some(([a, b, c]) => {
@@ -59,10 +61,13 @@ function GameRound (boardInstance, gameDisplay) {
 
         if (winCondition()) {
             displayResult.textContent = `Player ${currentPlayer} Wins!`
+            isgameOver = true 
         } else if (!boardInstance.getGameboard().includes('')) { //if the array has no empty strings, so no spots left to fill
             displayResult.textContent = "It's a Tie!"
+            isgameOver = true
         } else {
             //continue to play the game
+            isgameOver = false
             return
         }
     }
@@ -75,8 +80,9 @@ function GameRound (boardInstance, gameDisplay) {
     playerTurn (box.id)
     }) 
     function playerTurn (boxID) {
+        if (isgameOver) return //FIX: if isgameOver = true, disable additional turns
             //FIX: no skip turns if player accidentally picks an occupied spot
-        if (boardInstance.getGameboard()[boxID] === "") {
+        else if (boardInstance.getGameboard()[boxID] === "") {
             //identify which player is playing, add X and O
             if (currentPlayer === "X") {   
             boardInstance.add("X", boxID) //place mark
@@ -122,4 +128,4 @@ const game = GameRound(Gameboard1, display);
 display.displayBoard();
 
 
-//WRAP EVERYTHING IN IIFE! | FIX: after a player wins, disable click
+//WRAP EVERYTHING IN IIFE! | NEXT FIX: display should also refresh when clicking refresh button. and update the player turn as game progress
