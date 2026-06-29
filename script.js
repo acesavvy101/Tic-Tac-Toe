@@ -1,4 +1,4 @@
-function Gameboard () { 
+const Gameboard1 = (function Gameboard () { 
     //instead of pushing into gameboard, we should already have an array with 9 spots, and we need to replace a certain ele in the array (direct indexing)
     let gameboard = ['','','','','','','','',''];
 
@@ -16,13 +16,28 @@ function Gameboard () {
             gameboard = ['','','','','','','','','']; //make it turn into it's initial state
         },
 
-        getGameboard: () => gameboard //public getter (maintain encapsulation) | CONSIDER: making it readonly
+        getGameboard: () => gameboard //public getter (maintain encapsulation) | FIX: return a copy
     }
-}
+})();
 
 
-function GameRound (boardInstance, gameDisplay) {
-    //for every round u play, get the player's info
+const display = (function GameDisplay (boardInstance) {
+
+    function displayBoard() {
+        for (let i=0; i<=8; i++) {
+            document.getElementById(`${i}`).textContent = boardInstance.getGameboard()[i] 
+             //display the corresponding element in the array
+        }
+    }
+
+    return {
+        displayBoard
+    }
+})(Gameboard1);
+
+
+const game = (function GameRound (boardInstance, gameDisplay) {
+    //for every round u play, get the player's info | FIX: use this to get player names later!
     function createPlayer (name) {
         return {
             name: name
@@ -74,7 +89,7 @@ function GameRound (boardInstance, gameDisplay) {
         }
     }
 
-    let currentPlayer = "X" 
+    let currentPlayer = "X"
     const gridContainer = document.getElementById("gridContainer");
     gridContainer.addEventListener("click", (e) => {
     const box = e.target.closest(".box");  //determine which box was clicked
@@ -109,27 +124,4 @@ function GameRound (boardInstance, gameDisplay) {
         createPlayer,
         gameOver
     }
-}
-
-function GameDisplay (boardInstance) {
-
-    function displayBoard() {
-        for (let i=0; i<=8; i++) {
-            document.getElementById(`${i}`).textContent = boardInstance.getGameboard()[i] 
-             //display the corresponding element in the array
-        }
-    }
-
-    return {
-        displayBoard
-    }
-}
-
-const Gameboard1 = Gameboard();
-const display = GameDisplay(Gameboard1);
-const game = GameRound(Gameboard1, display);
-
-display.displayBoard();
-
-
-//WRAP EVERYTHING IN IIFE! | NEXT FIX: display should also refresh when clicking refresh button. and update the player turn as game progress
+})(Gameboard1, display);
