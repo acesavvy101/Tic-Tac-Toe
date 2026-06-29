@@ -3,7 +3,7 @@
 🔗 **[Click here to play!](https://acesavvy101.github.io/Tic-Tac-Toe/)**
 
 ## Desktop View:
-![alt text](image-2.png)
+![Desktop view](./assets/image-2.png)
 ---
 
 ## New things I learned from this project:
