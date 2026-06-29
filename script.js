@@ -43,7 +43,9 @@ function GameRound (boardInstance, gameDisplay) {
     const restartGame = document.getElementById("restart")
     restartGame.addEventListener("click", () => {
         boardInstance.reset()
+        isgameOver = false
         gameDisplay.displayBoard() // changing the array doesnt automatically change the display, u need 2 call it
+        displayResult.textContent = `Make Your Move!`
     })
 
     const displayResult = document.getElementById("displayResult")
@@ -84,16 +86,18 @@ function GameRound (boardInstance, gameDisplay) {
             //FIX: no skip turns if player accidentally picks an occupied spot
         else if (boardInstance.getGameboard()[boxID] === "") {
             //identify which player is playing, add X and O
-            if (currentPlayer === "X") {   
-            boardInstance.add("X", boxID) //place mark
-            gameOver()
-            gameDisplay.displayBoard() 
-            currentPlayer = "O"
+            if (currentPlayer === "X") { 
+                displayResult.textContent = "It's Player O's turn!" 
+                boardInstance.add("X", boxID) //place mark
+                gameOver()
+                gameDisplay.displayBoard() 
+                currentPlayer = "O"
             } else if (currentPlayer === "O") {
-            boardInstance.add("O",boxID)
-            gameOver()
-            gameDisplay.displayBoard() 
-            currentPlayer = "X"
+                displayResult.textContent = "It's Player X's turn!" 
+                boardInstance.add("O",boxID)
+                gameOver()
+                gameDisplay.displayBoard() 
+                currentPlayer = "X"
             }
         } else {
             alert (`pick a different position!`)
