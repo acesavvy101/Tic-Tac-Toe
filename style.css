@@ -1,3 +1,12 @@
+@font-face {
+    font-family: Porky;
+    src: url(assets/PORKYS_.TTF);
+}
+
+body {
+    background-image: url(assets/background1.jpg);
+}
+
 #gridContainer {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -5,12 +14,14 @@
     aspect-ratio: 1/1; /* to make it evenly squared */
     width: 500px;
     height: 500px;
-    font-size: 150px;
+    font-size: 115px;
     text-align: center;
 }
 
 .box {
-    border: 1px solid black;
+    border: 2px solid #E7A0cc;
+    color: #4e7cb2;
+    font-family: Porky;
 }
 
 #bigContainer {
@@ -27,4 +38,20 @@
 
 #displayResult {
     margin-bottom: 50px;
+}
+
+p, button {
+    font-family: Porky;
+    color: #203f9a;
+}
+
+p {
+    font-size: 50px;
+}
+button {
+    font-size: 25px;
+    background-color: #E7A0cc;
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
